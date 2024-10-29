@@ -1,6 +1,5 @@
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
-import * as url from 'node:url';
 import { logger } from '../../shared/logger.js';
 
 export const getVersion = async (): Promise<string> => {
@@ -23,7 +22,7 @@ const parsePackageJson = async (): Promise<{
   name: string;
   version: string;
 }> => {
-  const dirName = url.fileURLToPath(new URL('.', import.meta.url));
+  const dirName = import.meta.dirname;
   const packageJsonPath = path.join(dirName, '..', '..', '..', 'package.json');
   const packageJsonFile = await fs.readFile(packageJsonPath, 'utf-8');
   const packageJson = JSON.parse(packageJsonFile);
